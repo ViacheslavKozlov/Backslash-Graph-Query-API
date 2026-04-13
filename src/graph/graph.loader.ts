@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import type { Graph, GraphEdge, GraphNode, RawGraph } from '../types/graph.types.js';
-import { GraphLoadError } from '../errors/app-error.js';
+import { GraphLoadError } from '../errors/app.error.js';
 
 export function loadGraph(filePath: string): Graph {
   let rawData: RawGraph;

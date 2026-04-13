@@ -24,7 +24,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ['src/routes/**/*.ts', 'src/app.ts'],
+    files: ['src/routes/**/*.ts'],
     rules: {
       '@typescript-eslint/require-await': 'off',
     },
