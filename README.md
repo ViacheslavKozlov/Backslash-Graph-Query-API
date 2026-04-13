@@ -71,7 +71,14 @@ src/
 ├── app.ts                    # Fastify app factory (testable)
 ├── server.ts                 # Entry point
 ├── types/                    # Domain types & interfaces
+│   ├── app.types.ts
+│   ├── error.types.ts
+│   ├── filter.types.ts
+│   ├── graph.types.ts
+│   └── route.types.ts
 ├── config/                   # Environment config
+│   ├── index.ts
+│   └── logger.ts
 ├── graph/
 │   ├── graph.loader.ts       # JSON → typed Graph (normalizes edges, handles missing nodes)
 │   └── graph.service.ts      # DFS route traversal, adjacency list
@@ -81,8 +88,14 @@ src/
 │   ├── sink-end.filter.ts
 │   └── vulnerability.filter.ts
 ├── routes/                   # Fastify route handlers
+│   ├── graph.routes.ts
+│   └── routes.routes.ts
 ├── errors/                   # Custom errors + global handler
+│   ├── app-error.ts
+│   └── error-handler.ts
 └── schemas/                  # Typebox schemas (validation + Swagger)
+    ├── common-responses.ts
+    └── route-query.schema.ts
 ```
 
 ## Design Decisions
