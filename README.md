@@ -145,6 +145,21 @@ A pre-built Postman collection with test scripts is located at `docs/backslash-a
 - Open any request and click **Send**, or
 - Use the **Collection Runner** to execute all requests at once
 
+## Branching Strategy
+
+| Branch | Purpose |
+|---|---|
+| `main` | Production-ready code. Protected — requires PR + CI pass |
+| `dev` | Integration branch. All feature work merges here first |
+| `feature/<name>` | New features (`feature/add-cache-layer`) |
+| `refactor/<name>` | Code improvements (`refactor/extract-graph-loader`) |
+| `fix/<name>` | Bug fixes (`fix/filter-edge-case`) |
+| `hotfix/<name>` | Urgent production fixes — can merge directly to `main` |
+
+**Flow:**
+- `feature/*`, `refactor/*`, `fix/*` → PR to `dev` → PR to `main`
+- `hotfix/*` → PR directly to `main` (bypasses `dev` for urgency)
+
 ## Data Overview
 
 The provided `train-ticket-be.json` contains:
