@@ -1,0 +1,51 @@
+{
+  "nodes": [
+    {
+      "name": "public-api",
+      "kind": "service",
+      "language": "java",
+      "publicExposed": true
+    },
+    {
+      "name": "internal-service",
+      "kind": "service",
+      "language": "java",
+      "publicExposed": false,
+      "vulnerabilities": [
+        {
+          "file": "src/main.java",
+          "severity": "high",
+          "message": "SQL injection",
+          "metadata": { "cwe": "CWE-89" }
+        }
+      ]
+    },
+    {
+      "name": "another-service",
+      "kind": "service",
+      "language": "java",
+      "publicExposed": false
+    },
+    {
+      "name": "db-sink",
+      "kind": "rds",
+      "metadata": { "engine": "postgres" }
+    },
+    {
+      "name": "queue-sink",
+      "kind": "sqs",
+      "metadata": { "cloud": "AWS" }
+    },
+    {
+      "name": "orphan-service",
+      "kind": "service",
+      "language": "java",
+      "publicExposed": false
+    }
+  ],
+  "edges": [
+    { "from": "public-api", "to": ["internal-service", "another-service"] },
+    { "from": "internal-service", "to": ["db-sink"] },
+    { "from": "another-service", "to": "queue-sink" }
+  ]
+}

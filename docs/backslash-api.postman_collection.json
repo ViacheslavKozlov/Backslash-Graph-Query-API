@@ -1,0 +1,399 @@
+{
+  "info": {
+    "name": "Backslash Graph Query API",
+    "description": "Graph Query API for microservice route analysis",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Health Check",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is acceptable\", function () {",
+                  "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is valid JSON if content exists\", function () {",
+                  "  const body = pm.response.text();",
+                  "  if (body && body.trim().length > 0) {",
+                  "    pm.response.to.be.json;",
+                  "  }",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/health",
+            "description": "Checks service health."
+          },
+          "response": []
+        }
+      ],
+      "response": []
+    },
+    {
+      "name": "Graph",
+      "item": [
+        {
+          "name": "Get Full Graph",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is acceptable\", function () {",
+                  "  pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is JSON\", function () {",
+                  "  pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test(\"Response body is an object or array\", function () {",
+                  "  const data = pm.response.json();",
+                  "  const isObject = data !== null && typeof data === \"object\";",
+                  "  pm.expect(isObject).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/graph",
+            "description": "Returns the full microservice graph."
+          },
+          "response": []
+        }
+      ],
+      "response": []
+    },
+    {
+      "name": "Routes",
+      "item": [
+        {
+          "name": "Get All Routes (no filter)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is acceptable\", function () {",
+                  "  pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is JSON\", function () {",
+                  "  pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test(\"Response body is an object or array\", function () {",
+                  "  const data = pm.response.json();",
+                  "  const isObject = data !== null && typeof data === \"object\";",
+                  "  pm.expect(isObject).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/routes",
+            "description": "Returns all routes without filters."
+          },
+          "response": []
+        },
+        {
+          "name": "Routes - Public Start",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is acceptable\", function () {",
+                  "  pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is JSON\", function () {",
+                  "  pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test(\"Request query contains publicStart filter\", function () {",
+                  "  pm.expect(pm.request.url.toString()).to.include(\"filters=publicStart\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/routes?filters=publicStart",
+            "description": "Returns routes filtered by publicStart."
+          },
+          "response": []
+        },
+        {
+          "name": "Routes - Sink End",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is acceptable\", function () {",
+                  "  pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is JSON\", function () {",
+                  "  pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test(\"Request query contains sinkEnd filter\", function () {",
+                  "  pm.expect(pm.request.url.toString()).to.include(\"filters=sinkEnd\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/routes?filters=sinkEnd",
+            "description": "Returns routes filtered by sinkEnd."
+          },
+          "response": []
+        },
+        {
+          "name": "Routes - Vulnerability",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is acceptable\", function () {",
+                  "  pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is JSON\", function () {",
+                  "  pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test(\"Request query contains vulnerability filter\", function () {",
+                  "  pm.expect(pm.request.url.toString()).to.include(\"filters=vulnerability\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/routes?filters=vulnerability",
+            "description": "Returns routes filtered by vulnerability."
+          },
+          "response": []
+        },
+        {
+          "name": "Routes - Combined Filters (publicStart + sinkEnd)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is acceptable\", function () {",
+                  "  pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is JSON\", function () {",
+                  "  pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test(\"Request query contains combined filters\", function () {",
+                  "  pm.expect(pm.request.url.toString()).to.include(\"filters=publicStart,sinkEnd\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/routes?filters=publicStart,sinkEnd",
+            "description": "Returns routes filtered by publicStart and sinkEnd."
+          },
+          "response": []
+        },
+        {
+          "name": "Routes - All Filters Combined",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is acceptable\", function () {",
+                  "  pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is JSON\", function () {",
+                  "  pm.response.to.be.json;",
+                  "});",
+                  "",
+                  "pm.test(\"Request query contains all combined filters\", function () {",
+                  "  pm.expect(pm.request.url.toString()).to.include(\"filters=publicStart,sinkEnd,vulnerability\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/routes?filters=publicStart,sinkEnd,vulnerability",
+            "description": "Returns routes filtered by publicStart, sinkEnd, and vulnerability."
+          },
+          "response": []
+        },
+        {
+          "name": "Routes - Invalid Filter (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "  pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time is acceptable\", function () {",
+                  "  pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Error response is JSON if body exists\", function () {",
+                  "  const body = pm.response.text();",
+                  "  if (body && body.trim().length > 0) {",
+                  "    pm.response.to.be.json;",
+                  "  }",
+                  "});",
+                  "",
+                  "pm.test(\"Request query contains invalid filter\", function () {",
+                  "  pm.expect(pm.request.url.toString()).to.include(\"filters=invalidFilter\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/routes?filters=invalidFilter",
+            "description": "Returns a 400 response for an invalid filter."
+          },
+          "response": []
+        }
+      ],
+      "response": []
+    }
+  ]
+}
