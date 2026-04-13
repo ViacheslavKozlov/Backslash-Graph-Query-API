@@ -1,7 +1,7 @@
 import type { RouteFilter } from '../types/filter.types.js';
 import type { Route } from '../types/route.types.js';
 import type { Graph } from '../types/graph.types.js';
-import { InvalidFilterError } from '../errors/app-error.js';
+import { InvalidFilterError } from '../errors/app.error.js';
 
 export class FilterRegistry {
   private readonly filters = new Map<string, RouteFilter>();

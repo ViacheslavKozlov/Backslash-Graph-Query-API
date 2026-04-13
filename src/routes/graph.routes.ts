@@ -1,7 +1,7 @@
 import type { FastifyInstance } from 'fastify';
 import type { GraphService } from '../graph/graph.service.js';
 import { GraphResponseSchema } from '../schemas/route-query.schema.js';
-import { commonResponses } from '../schemas/common-responses.js';
+import { commonResponses } from '../schemas/common-responses.schema.js';
 
 export function registerGraphRoutes(fastify: FastifyInstance, graphService: GraphService) {
   fastify.get(
